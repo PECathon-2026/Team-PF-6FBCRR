@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrivacyLens Meet — Engineering Sync</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0b0f19; color: #fff; margin: 0; padding: 20px; }
+        .meet-container { max-width: 800px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+        .video-tile { background: #1f2937; border-radius: 12px; height: 200px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px solid #374151; }
+        .avatar-circle { width: 70px; height: 70px; border-radius: 50%; background: #3b82f6; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: bold; }
+        .participant-name { position: absolute; bottom: 12px; left: 14px; background: rgba(0,0,0,0.65); padding: 4px 10px; border-radius: 6px; font-size: 13px; font-weight: 500; }
+        .controls { display: flex; justify-content: center; gap: 16px; background: #111827; padding: 16px; border-radius: 50px; border: 1px solid #1f2937; max-width: 400px; margin: 0 auto; }
+        .ctrl-btn { background: #374151; color: #fff; border: none; padding: 12px 20px; border-radius: 30px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .ctrl-btn:hover { background: #4b5563; }
+        .ctrl-btn.active-mute { background: #dc2626; }
+    </style>
+</head>
+<body>
+    <div class="meet-container">
+        <h1 style="font-size: 20px; text-align: center; color: #9ca3af; margin-bottom: 20px;">Architecture Review Call (4 Participants)</h1>
+        
+        <div class="grid">
+            <div class="video-tile" id="tile1">
+                <div class="avatar-circle" style="background: #8b5cf6;">AP</div>
+                <div class="participant-name">Aditi Patel (Lead Architect)</div>
+            </div>
+            <div class="video-tile" id="tile2">
+                <div class="avatar-circle" style="background: #10b981;">VK</div>
+                <div class="participant-name">Vikram Kumar (Security Auditor)</div>
+            </div>
+            <div class="video-tile" id="tile3">
+                <div class="avatar-circle" style="background: #f59e0b;">NR</div>
+                <div class="participant-name">Neha Rao (Frontend Eng)</div>
+            </div>
+            <div class="video-tile" id="tile4">
+                <div class="avatar-circle" style="background: #3b82f6;">ME</div>
+                <div class="participant-name">Sagar Tripathi (You)</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="muteBtn" class="ctrl-btn" onclick="toggleMute()" aria-label="Mute microphone">
+                <span id="muteIcon">🎙️</span> <span id="muteLabel">Mute</span>
+            </button>
+            <button id="cameraBtn" class="ctrl-btn" onclick="alert('Camera toggled')">
+                <span>📹</span> Stop Video
+            </button>
+            <button id="leaveBtn" class="ctrl-btn" style="background: #ef4444;" onclick="alert('Call ended')">
+                Leave
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let isMuted = false;
+        function toggleMute() {
+            isMuted = !isMuted;
+            const btn = document.getElementById('muteBtn');
+            const label = document.getElementById('muteLabel');
+            if (isMuted) {
+                btn.className = 'ctrl-btn active-mute';
+                label.innerText = 'Unmute';
+                document.title = "PrivacyLens Meet — Microphone Muted";
+            } else {
+                btn.className = 'ctrl-btn';
+                label.innerText = 'Mute';
+                document.title = "PrivacyLens Meet — Engineering Sync";
+            }
+        }
+    </script>
+</body>
+</html>

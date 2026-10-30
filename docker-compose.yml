@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: privacylens-api
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - HOST=0.0.0.0
+      - HEADLESS=true
+      - BROWSER_TYPE=camoufox
+      - LOCAL_ONLY_MODE=true
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+    volumes:
+      - ./reports:/app/reports
+    restart: unless-stopped
+
+  dashboard:
+    build:
+      context: apps/dashboard
+      dockerfile: Dockerfile
+    container_name: privacylens-dashboard
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - api
+    restart: unless-stopped
+

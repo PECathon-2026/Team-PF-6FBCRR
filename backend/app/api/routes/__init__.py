@@ -1,3 +1,0 @@
-"""
-PrivacyLens API Endpoints
-"""

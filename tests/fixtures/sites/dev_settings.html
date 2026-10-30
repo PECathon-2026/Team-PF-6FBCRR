@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Developer Console — API & Infrastructure Settings</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0d1117; color: #c9d1d9; margin: 0; padding: 24px; }
+        .dashboard { max-width: 750px; margin: 0 auto; background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 24px; }
+        h1 { font-size: 20px; color: #58a6ff; margin-top: 0; }
+        .section { margin-top: 24px; border-top: 1px solid #21262d; padding-top: 16px; }
+        .section-title { font-size: 14px; font-weight: 600; text-transform: uppercase; color: #8b949e; letter-spacing: 0.5px; margin-bottom: 12px; }
+        .key-row { display: flex; justify-content: space-between; align-items: center; background: #0d1117; padding: 12px 16px; border-radius: 6px; border: 1px solid #30363d; margin-bottom: 10px; }
+        .key-val { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; color: #7ee787; }
+        .btn-copy { background: #21262d; color: #c9d1d9; border: 1px solid #30363d; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+        .btn-copy:hover { background: #30363d; }
+        .toggle-row { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #30363d; transition: .4s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #238636; }
+        input:checked + .slider:before { transform: translateX(20px); }
+        .status-badge { font-size: 12px; padding: 2px 8px; border-radius: 10px; background: #1f6feb22; color: #58a6ff; border: 1px solid #1f6feb; }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h1>Project Security & API Credentials</h1>
+        
+        <div class="section">
+            <div class="section-title">Production API Access Keys</div>
+            <div class="key-row">
+                <div>
+                    <div style="font-weight: 600; font-size: 13px;">Live Server API Secret</div>
+                    <span class="key-val" id="prodKey">sk-pl-prod-live-982341908234918239081234</span>
+                </div>
+                <button class="btn-copy" onclick="alert('Copied key')">Copy</button>
+            </div>
+
+            <div class="key-row">
+                <div>
+                    <div style="font-weight: 600; font-size: 13px;">JWT Authorization Bearer</div>
+                    <span class="key-val" id="jwtToken" style="font-size: 11px;">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIn0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</span>
+                </div>
+                <button class="btn-copy" onclick="alert('Copied token')">Copy</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Host Infrastructure Endpoints</div>
+            <p style="font-size: 13px; margin: 4px 0;">Primary Production Gateway: <code>10.0.14.88</code></p>
+            <p style="font-size: 13px; margin: 4px 0;">Internal IPv6 Cluster Node: <code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code></p>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Telemetry & Diagnostics Policy</div>
+            <div class="toggle-row">
+                <div>
+                    <div style="font-weight: 600; font-size: 14px;">Anonymous Cloud Telemetry</div>
+                    <div style="font-size: 12px; color: #8b949e;">Report anonymous crash dumps and usage statistics.</div>
+                </div>
+                <button id="telemetryToggleBtn" class="btn-copy" onclick="toggleTelemetry()" role="button">
+                    <span id="telemetryState">Disable Telemetry</span>
+                </button>
+            </div>
+            <div style="margin-top: 10px;">
+                Current Policy: <span id="policyStatus" class="status-badge">Telemetry Active</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let telemetryEnabled = true;
+        function toggleTelemetry() {
+            telemetryEnabled = !telemetryEnabled;
+            const btn = document.getElementById('telemetryToggleBtn');
+            const state = document.getElementById('telemetryState');
+            const status = document.getElementById('policyStatus');
+            if (!telemetryEnabled) {
+                state.innerText = 'Enable Telemetry';
+                status.innerText = 'Telemetry Disabled (Strict Local Only)';
+                status.style.color = '#7ee787';
+                status.style.borderColor = '#238636';
+                document.title = "Cloud Developer Console — Telemetry Disabled";
+            } else {
+                state.innerText = 'Disable Telemetry';
+                status.innerText = 'Telemetry Active';
+                status.style.color = '#58a6ff';
+                status.style.borderColor = '#1f6feb';
+            }
+        }
+    </script>
+</body>
+</html>

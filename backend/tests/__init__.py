@@ -1,3 +1,0 @@
-"""
-PrivacyLens Backend Test Suite
-"""

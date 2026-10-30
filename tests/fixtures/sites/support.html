@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Support — Ticket #49281</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 24px; }
+        .chat-container { max-width: 600px; margin: 0 auto; background: #1e293b; border-radius: 12px; border: 1px solid #334155; overflow: hidden; display: flex; flex-direction: column; height: 550px; }
+        .chat-header { background: #0f172a; padding: 16px 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; }
+        .chat-body { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+        .chat-message { max-width: 80%; padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.5; }
+        .chat-message.customer { align-self: flex-start; background: #334155; color: #e2e8f0; }
+        .chat-message.agent { align-self: flex-end; background: #0284c7; color: #fff; }
+        .meta { font-size: 11px; opacity: 0.7; margin-bottom: 4px; font-weight: 600; }
+        .chat-footer { padding: 16px; background: #0f172a; border-top: 1px solid #334155; display: flex; gap: 10px; }
+        textarea { flex: 1; height: 40px; background: #1e293b; border: 1px solid #475569; border-radius: 6px; color: #fff; padding: 8px 12px; font-size: 14px; resize: none; }
+        .btn-send { padding: 0 20px; background: #0284c7; color: #fff; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .btn-send:hover { background: #0369a1; }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div>
+                <strong>Support Desk: Order Tracking Issue</strong>
+                <div style="font-size: 12px; color: #94a3b8;">Ticket #49281 • Priority: High</div>
+            </div>
+            <span style="font-size: 12px; background: #065f46; color: #34d399; padding: 3px 8px; border-radius: 10px;">Active</span>
+        </div>
+
+        <div class="chat-body" id="chatThread">
+            <div class="chat-message customer">
+                <div class="meta">Customer (Rohan Sharma) • 10:14 AM</div>
+                <div class="text">Hi, my shipment #ORD-9821 is delayed. Please call my registered phone number +91 98765 43210 immediately to confirm my delivery address at Indiranagar, Bengaluru.</div>
+            </div>
+
+            <div class="chat-message customer">
+                <div class="meta">Customer (Rohan Sharma) • 10:15 AM</div>
+                <div class="text">Also for identity verification my PAN is ABCDE1234F. Please resolve this urgent dispatch today.</div>
+            </div>
+        </div>
+
+        <div class="chat-footer">
+            <textarea id="replyText" placeholder="Draft a support reply to customer..." aria-label="Draft a reply to customer"></textarea>
+            <button id="sendBtn" class="btn-send" onclick="sendReply()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendReply() {
+            const val = document.getElementById('replyText').value.trim();
+            if (!val) return;
+            const msgEl = document.createElement('div');
+            msgEl.className = 'chat-message agent';
+            msgEl.innerHTML = `<div class="meta">Support Agent • Just now</div><div class="text">${val}</div>`;
+            document.getElementById('chatThread').appendChild(msgEl);
+            document.getElementById('replyText').value = '';
+            document.title = "Customer Support — Reply Dispatched";
+        }
+    </script>
+</body>
+</html>
